@@ -27,8 +27,27 @@ def check_input(user_input):
         print("That's not an int!")
 
 
+def is_taken(coord, board):
+    row = coord[0]
+    col = coord[1]
+    if board[row][col] != "_":
+        print("This position is been taken")
+        return True
+    else:
+        board[row][col] = "x"
+
+
+def coordinates(user_input, board):
+    row = int(user_input / len(board))
+    col = int(user_input % len(board))
+    return (row,col)
+
 while True:
     game_board(board)
     user_input = input("Please enter a position 1 through 9 or enter \"q\" to quit: ")
     if quit(user_input): break
     if not check_input(user_input): continue
+    user_input = int(user_input) - 1
+    coord = coordinates(user_input, board)
+    if is_taken(coord, board): continue
+
