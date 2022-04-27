@@ -1,4 +1,4 @@
-
+import itertools
 
 board = [["_", "_", "_"],
          ["_", "_", "_"],
@@ -27,20 +27,26 @@ def check_input(user_input):
         print("That's not an int!")
 
 
-def is_taken(coord, board):
+def is_taken(player, coord, board):
     row = coord[0]
     col = coord[1]
     if board[row][col] != "_":
         print("This position is been taken")
         return True
     else:
-        board[row][col] = "x"
+        board[row][col] = player
 
 
 def coordinates(user_input, board):
     row = int(user_input / len(board))
     col = int(user_input % len(board))
     return (row,col)
+
+def turn_players():
+    player = ["x", "o"]
+    return itertools.cycle(player)
+
+player_choice = turn_players()
 
 while True:
     game_board(board)
@@ -49,5 +55,6 @@ while True:
     if not check_input(user_input): continue
     user_input = int(user_input) - 1
     coord = coordinates(user_input, board)
-    if is_taken(coord, board): continue
+    player = next(player_choice)
+    if is_taken(player, coord, board): continue
 
