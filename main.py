@@ -66,10 +66,19 @@ def win(player, board):
             print(f"{player.upper()} Win Vertically |")
             return True
 
+    diags = []
+    for index in range(len(board)):
+        diags.append(board[index][index])
+    if diags.count(diags[0]) == len(diags) and diags[0] != "_":
+        print(f"{player} Win Diagonally \\")
+        return True
 
-
-
-
+    diags = []
+    for row, col in enumerate(reversed(range(len(board)))):
+        diags.append(board[row][col])
+    if diags.count(diags[0]) == len(diags) and diags[0] != "_":
+        print("you win diagonally /")
+        return True
 
 
 while True:
