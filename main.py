@@ -46,7 +46,23 @@ def turn_players():
     player = ["x", "o"]
     return itertools.cycle(player)
 
+
 player_choice = turn_players()
+
+
+
+def win(player, board):
+    row = int(user_input / len(board))
+    for row in board:
+        if row.count(row[0]) == len(row) and row[0] != "_":
+            print(f"{player.upper()} Win Horizontally")
+            return True
+
+
+
+
+
+
 
 while True:
     game_board(board)
@@ -57,4 +73,6 @@ while True:
     coord = coordinates(user_input, board)
     player = next(player_choice)
     if is_taken(player, coord, board): continue
-
+    if win(player, board):
+        game_board(board)
+        break
