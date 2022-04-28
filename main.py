@@ -52,10 +52,18 @@ player_choice = turn_players()
 
 
 def win(player, board):
-    row = int(user_input / len(board))
     for row in board:
         if row.count(row[0]) == len(row) and row[0] != "_":
             print(f"{player.upper()} Win Horizontally")
+            return True
+
+
+    for col in range(len(board)):
+        vertical = []
+        for row in board:
+            vertical.append(row[col])
+        if vertical.count(vertical[0]) == len(vertical) and vertical[0] != "_":
+            print(f"{player.upper()} Win Vertically |")
             return True
 
 
