@@ -1,4 +1,8 @@
 import itertools
+from art import logo
+print(logo)
+
+conuter = 0
 
 board = [["_", "_", "_"],
          ["_", "_", "_"],
@@ -42,6 +46,7 @@ def coordinates(user_input, board):
     col = int(user_input % len(board))
     return (row,col)
 
+
 def turn_players():
     player = ["x", "o"]
     return itertools.cycle(player)
@@ -81,7 +86,7 @@ def win(player, board):
         return True
 
 
-while True:
+while conuter < 9:
     game_board(board)
     user_input = input("Please enter a position 1 through 9 or enter \"q\" to quit: ")
     if quit(user_input): break
@@ -92,4 +97,8 @@ while True:
     if is_taken(player, coord, board): continue
     if win(player, board):
         game_board(board)
+        break
+    conuter += 1
+    if conuter == 9:
+        print("This game is a Tie")
         break
