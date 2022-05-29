@@ -2,6 +2,12 @@ from colorama import init, Fore, Back
 init()
 from art import logo
 import itertools
+from collections import namedtuple
+
+Coord = namedtuple('Coord', 'row, col')
+
+
+
 
 print(logo)
 
@@ -48,13 +54,14 @@ def coordinates(user_input, board):
     """Take a dynamic row and col"""
     row = int(user_input / len(board))
     col = int(user_input % len(board))
-    return (row, col)
+    coord = Coord(row=row, col=col)
+    return coord
 
 
 def is_taken(coord, board):
     """Check if the place is free to use"""
-    row = coord[0]
-    col = coord[1]
+    row = coord.row
+    col = coord.col
     if board[row][col] != "_":
         print(Fore.RED + "This position is been taken")
         return True
@@ -71,8 +78,7 @@ player_choice = turn_players()
 
 def add(player, coord, board):
     """Add a player to the free selected place"""
-    row = coord[0]
-    col = coord[1]
+    row, col = coord
     board[row][col] = player
 
 
@@ -115,11 +121,11 @@ def win(player, board):
 
 def again():
     """Ask the user for another game or exit from the game"""
-    again = input("Do you like to play again (Y or N): ")
-    if again.upper() == "Y":
+    again = input("Do you like to play again (Y or N): ").upper()
+    if again == "Y":
         print(Fore.YELLOW + "Reload New Game")
         return False
-    elif again.upper() == "N":
+    elif again == "N":
         print(Fore.CYAN + "Byeeeeee To You")
         return True
     else:
